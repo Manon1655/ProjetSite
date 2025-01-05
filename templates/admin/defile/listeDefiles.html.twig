@@ -207,148 +207,100 @@
 {% block body %}
 <div class="container py-5">
     <h1 class="text-center text-primary mb-5">Liste des Défilés</h1>
+    
     {% if "ROLE_ADMIN" in app.user.roles %}
         <div class="d-flex justify-content-between align-items-center mb-5">
             <a href="{{ path('admin_defile_ajout') }}" class="btn btn-outline-primary btn-lg">
                 <i class="fas fa-plus-circle me-2"></i> Ajouter un défilé
             </a>
         </div>
-        {% endif %}
-       <form method="GET">
-    <div class="form-group">
-        <label for="mannequins">Filtrer par mannequin</label>
-        <select name="mannequins" class="form-control">
-            <option value="">Choisir un mannequin</option>
-            {% for mannequin in range(2000, 2025) %}
-                <option value="{{ mannequin }}" 
-                    {% if app.request.query.get('mannequins') == mannequin|str %}selected{% endif %}>
-                    {{ mannequin }}
-                </option>
-            {% endfor %}
-        </select>
-    </div>
+    {% endif %}
 
-    <div class="form-group">
-        <label for="annee">Filtrer par année</label>
-        <select name="annee" class="form-control">
-            <option value="">Choisir une année</option>
-            {% for annee in range(2000, 2025) %}
-                <option value="{{ annee }}" 
-                    {% if app.request.query.get('annee') == annee|str %}selected{% endif %}>
-                    {{ annee }}
-                </option>
-            {% endfor %}
-        </select>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Filtrer</button>
-</form>
-
-
-
-        <form method="get" action="{{ path('defile_index') }}" class="mb-4">
+<form method="get" action="{{ path('defile_index') }}" class="mb-4">
             <div class="search-bar">
                 <input 
                     type="text" 
                     name="search" 
                     class="form-control" 
-                    placeholder="Rechercher un defile par nom..." 
+                    placeholder="Rechercher un mannequin par nom..." 
                     value="{{ app.request.query.get('search') }}"
                 >
                 <button type="submit" class="btn btn-primary">Rechercher</button>
             </div>
         </form>
-    
+  
+    <form method="GET" action="{{ path('defile_index') }}" class="mb-4">
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="mannequins">Filtrer par mannequin</label>
+                <select name="mannequins" id="mannequins" class="form-control">
+                    <option value="">Choisir un mannequin</option>
+                </select>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="annee">Filtrer par année</label>
+                <select name="annee" id="annee" class="form-control">
+                    <option value="">Choisir une année</option>
+                    {% for annee in range(2000, 2025) %}
+                        <option value="{{ annee }}" 
+                            {% if app.request.query.get('annee') == annee %}selected{% endif %}>
+                            {{ annee }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Filtrer</button>
+    </form>
 
-    <div class="row row-cols-1 row-cols-md-9 row-cols-lg-3 g-4">
+    <!-- Liste des défilés -->
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
         {% for ledefile in lesDefiles %}
-         {% if app.request.query.get('search') is not empty %}
-            {% if ledefile.NomD matches '/^' ~ app.request.query.get('search') ~ '/i' %}
             <div class="col">
                 <div class="card shadow-lg border-0 rounded-4">
                     <div class="card-body">
                         <h5 class="card-title">{{ ledefile.NomD }}</h5>
                         <h6 class="card-subtitle mb-2">{{ ledefile.Date|date("Y/m/d") }}</h6>
-                    <p class="card-text">
-                        {% if ledefile.theme %}
-                            <strong>Thème:</strong> {{ ledefile.theme }}
-                        {% endif %}
-                        <br>
-                        <strong>Description:</strong> {{ ledefile.Description }}
-                        <ul>
-                            <strong>Mannequins associés:</strong>
-                            {% for mannequin in ledefile.mannequin %}
-                                <li>{{ mannequin.Nom }}</li>
-                            {% else %}
-                                <li>Aucuns mannequins associés</li>
-                            {% endfor %}
-                        </ul>
-                    </p>
-                </div>
-                        {% if "ROLE_ADMIN" in app.user.roles %}
-                            <div class="btn-container">
-                                <a href="{{ path('admin_defile_modif', {'id': ledefile.id}) }}" class="btn btn-warning btn-sm">
-                                    <i class="fas fa-pen"></i> Modifier
-                                </a>
-                                <a class="btn btn-danger btn-sm"
-                                   data-bs-toggle="modal"
-                                   data-bs-target="#modalSimple"
-                                   data-titre="Suppression d'un défilé"
-                                   data-message="Êtes-vous sûr de vouloir supprimer le défilé : {{ ledefile.NomD }} ?"
-                                   data-libelleBouton="Supprimer ce défilé"
-                                   <a href="{{ path('admin_defile_suppression', {'id': ledefile.id}) }}" class="btn btn-warning btn-sm">
-                                   <i class="far fa-trash-alt"></i> Supprimer
-                                </a>
-                            </div>
-                        {% endif %}
+                        <p class="card-text">
+                            {% if ledefile.theme %}
+                                <strong>Thème:</strong> {{ ledefile.theme }}
+                            {% endif %}
+                            <br>
+                            <strong>Description:</strong> {{ ledefile.Description }}
+                            <ul>
+                                <strong>Mannequins associés:</strong>
+                                {% for mannequin in ledefile.mannequin %}
+                                    <li>{{ mannequin.Nom }}</li>
+                                {% else %}
+                                    <li>Aucun mannequin associé</li>
+                                {% endfor %}
+                            </ul>
+                        </p>
                     </div>
+                    {% if "ROLE_ADMIN" in app.user.roles %}
+                        <div class="btn-container">
+                            <a href="{{ path('admin_defile_modif', {'id': ledefile.id}) }}" class="btn btn-warning btn-sm">
+                                <i class="fas fa-pen"></i> Modifier
+                            </a>
+                            <a 
+                                href="{{ path('admin_defile_suppression', {'id': ledefile.id}) }}" 
+                                class="btn btn-danger btn-sm"
+                                data-bs-toggle="modal"
+                                data-bs-target="#modalSimple"
+                                data-titre="Suppression d'un défilé"
+                                data-message="Êtes-vous sûr de vouloir supprimer le défilé : {{ ledefile.NomD }} ?"
+                                data-libelleBouton="Supprimer ce défilé">
+                                <i class="far fa-trash-alt"></i> Supprimer
+                            </a>
+                        </div>
+                    {% endif %}
                 </div>
-            {% endif %}
-        {% else %}
-        <div class="col">
-                <div class="card shadow-lg border-0 rounded-4">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ ledefile.NomD }}</h5>
-                        <h6 class="card-subtitle mb-2">{{ ledefile.Date|date("Y/m/d") }}</h6>
-                    <p class="card-text">
-                        {% if ledefile.theme %}
-                            <strong>Thème:</strong> {{ ledefile.theme }}
-                        {% endif %}
-                        <br>
-                        <strong>Description:</strong> {{ ledefile.Description }}
-                        <ul>
-                            <strong>Mannequins associés:</strong>
-                            {% for mannequin in ledefile.mannequin %}
-                                <li>{{ mannequin.Nom }}</li>
-                            {% else %}
-                                <li>Aucuns mannequins associés</li>
-                            {% endfor %}
-                        </ul>
-                    </p>
-                </div>
-                        {% if "ROLE_ADMIN" in app.user.roles %}
-                            <div class="btn-container">
-                                <a href="{{ path('admin_defile_modif', {'id': ledefile.id}) }}" class="btn btn-warning btn-sm">
-                                    <i class="fas fa-pen"></i> Modifier
-                                </a>
-                                <a class="btn btn-danger btn-sm"
-                                   data-bs-toggle="modal"
-                                   data-bs-target="#modalSimple"
-                                   data-titre="Suppression d'un défilé"
-                                   data-message="Êtes-vous sûr de vouloir supprimer le défilé : {{ ledefile.NomD }} ?"
-                                   data-libelleBouton="Supprimer ce défilé"
-                                   <a href="{{ path('admin_defile_suppression', {'id': ledefile.id}) }}" class="btn btn-warning btn-sm">
-                                   <i class="far fa-trash-alt"></i> Supprimer
-                                </a>
-                            </div>
-                        {% endif %}
-                    </div>
-                </div>
-            {% endif %}
+            </div>
         {% endfor %}
     </div>
+</div>
 {% endblock %}
-
 {% block javascript %}
     {% include "include/_modale.html.twig" %}
 {% endblock %}
+
