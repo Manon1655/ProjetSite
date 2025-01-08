@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-{% extends 'base.html.twig' %}
-<html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -73,7 +72,7 @@
                     </div>
                     <div class="blog-card-content">
                      <p>{{ blog.user.avatar }}</p>
-                    <p>{{ blog.user.pseudo }}</p>
+                    <p><strong>Pseudo :</strong>{{ blog.user.pseudo }}</p>
                     
                         <h3>{{ blog.NomArticle }}</h3>
                         <div class="blog-meta">
@@ -93,7 +92,7 @@
                         <button class="btn" onclick="addComment({{ blog.id }})" id="pseudo-{{ blog.id }}"class="pseudo-input">Ajouter un commentaire</button>
                         <div id="comments-{{ blog.id }}" class="comments-container"></div>
                     </div>
-                 {% if blog.user == app.user %}
+               {% if blog.user == app.user or is_granted('ROLE_ADMIN') %}
                     <div class="card-actions">
                             <a href="{{ path('blog_modif', {'id': blog.id}) }}" class="btn">
                                 <i class="fas fa-edit"></i> Modifier
