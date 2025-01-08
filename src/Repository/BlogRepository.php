@@ -35,6 +35,11 @@ class BlogRepository extends ServiceEntityRepository
    }
 }
 
+
+
+
+
+
 //    public function findOneBySomeField($value): ?Blog
 //    {
 //        return $this->createQueryBuilder('b')
