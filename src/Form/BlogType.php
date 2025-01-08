@@ -36,7 +36,7 @@ class BlogType extends AbstractType
             ])
             ->add('defile', EntityType::class, [
                 'class' => Defile::class,
-                'choice_label' => 'NomD',  // Assuming "NomD" is the name of the defile
+                'choice_label' => 'NomD',  
                 'label' => 'Défilé associé',
                 'required' => false,
             ])

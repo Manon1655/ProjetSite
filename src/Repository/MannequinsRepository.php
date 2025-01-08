@@ -32,8 +32,8 @@ class MannequinsRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('m')
             ->where('m.Nom LIKE :search')
-            ->setParameter('search', $search . '%')  // Le % signifie "tout ce qui suit"
-            ->orderBy('m.Nom', 'ASC')  // Tri par nom
+            ->setParameter('search', $search . '%')  
+            ->orderBy('m.Nom', 'ASC')  
             ->getQuery();
     }
 
@@ -57,15 +57,15 @@ class MannequinsRepository extends ServiceEntityRepository
     public function listeMannequinsCompletePaginee()
     {
         return $this->createQueryBuilder('a')
-            ->select('a')  // Sélection de toutes les colonnes
-            ->orderBy('a.Nom', 'ASC')  // Tri par nom
+            ->select('a') 
+            ->orderBy('a.Nom', 'ASC')  
             ->getQuery();
     }
 
     public function findByDefile($defileId)
 {
     return $this->createQueryBuilder('m')
-        ->innerJoin('m.defiles', 'd')  // Jointure avec la table des défilés
+        ->innerJoin('m.defiles', 'd') 
         ->where('d.id = :defileId')
         ->setParameter('defileId', $defileId)
         ->getQuery()

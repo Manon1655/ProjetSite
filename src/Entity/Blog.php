@@ -29,7 +29,6 @@ class Blog
     #[Assert\Length(min: 10, minMessage: "Le contenu doit comporter au moins {{ limit }} caractères.")]
     private ?string $Contenu = null;
 
-
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?DateTimeInterface $Date;
 
@@ -42,6 +41,9 @@ class Blog
 
     #[ORM\OneToMany(mappedBy: 'blog', targetEntity: Commentaire::class, cascade: ['persist', 'remove'])]
     private Collection $commentaires;
+
+    #[ORM\ManyToOne(inversedBy: 'blogs')]
+    private ?User $user = null;
 
     public function __construct()
     {
@@ -144,6 +146,18 @@ class Blog
                 $commentaire->setBlog(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }

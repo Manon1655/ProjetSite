@@ -53,9 +53,7 @@
                                 </ul>
                             </div>
                         {% endif %}
-
-
-       
+                        
         <div class="col-md-6">
             {{ form_row(formDefile.description) }}
         </div>
@@ -64,36 +62,6 @@
     {{ form_end(formDefile) }}
 </div>
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Nom</th>
-            <th>Description</th>
-            <th>Catégorie</th>
-            <th>Date</th>
-            <th>Mannequins</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for defile in defiles %}
-            <tr>
-                <td>{{ defile.nom }}</td>
-                <td>{{ defile.description }}</td>
-                <td>{{ defile.categorie.nom }}</td>
-                <td>{{ defile.date|date('Y-m-d') }}</td>
-                <td>
-                    {% for mannequin in defile.mannequins %}
-                        {{ mannequin.nom }}{% if not loop.last %}, {% endif %}
-                    {% endfor %}
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5" class="text-center">Aucun défilé trouvé.</td>
-            </tr>
-        {% endfor %}
-    </tbody>
-</table>
 
 
 <div class="cancel-button-container">

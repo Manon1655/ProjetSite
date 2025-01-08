@@ -22,7 +22,7 @@ class DefileRepository extends ServiceEntityRepository
     }
     
         /**
-    * @return Query Returns an array of Artiste objects
+    * @return Query 
      */
     public function listeDefilesCompletePaginee()
     {
@@ -45,8 +45,8 @@ class DefileRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('d')
             ->where('d.NomD LIKE :search')
-            ->setParameter('search', $search . '%')  // Le % signifie "tout ce qui suit"
-            ->orderBy('d.NomD', 'ASC')  // Tri par nom
+            ->setParameter('search', $search . '%')  
+            ->orderBy('d.NomD', 'ASC') 
             ->getQuery();
     }
 
@@ -70,8 +70,8 @@ class DefileRepository extends ServiceEntityRepository
     public function listeMannequinsCompletePaginee()
     {
         return $this->createQueryBuilder('a')
-            ->select('a')  // Sélection de toutes les colonnes
-            ->orderBy('a.Nom', 'ASC')  // Tri par nom
+            ->select('a')  
+            ->orderBy('a.Nom', 'ASC')  
             ->getQuery();
     }
 

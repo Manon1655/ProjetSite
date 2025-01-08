@@ -43,25 +43,29 @@
 
 <div class="form-group">
     {{ form_label(formMarque.image, 'Image') }}
-    {{ form_widget(formMarque.image, {'attr': {'placeholder': 'Image du mannequin'}}) }}
+    {{ form_widget(formMarque.image, {'attr': {'placeholder': 'Image de la marque'}}) }}
 </div>
 
 <div class="row">
     <div class="col">{{ form_row(formMarque.RepresentantM) }}</div>
 </div>
 
- <div class="form-group">
-        <button type="submit" class="btn btn-dark btn-block">
-            {% if app.request.attributes.get('_route') == 'admin_marques_ajout' %}
-                Ajouter la marque
-            {% else %}
-                Enregistrer les modifications
-            {% endif %}
-        </button>
-        <a href="{{ path('admin_marques') }}" class="btn btn-secondary btn-block">Annuler</a>
-    </div>
+<div class="form-group">
+    <button type="submit" class="btn btn-dark btn-block">
+        {% if app.request.attributes.get('_route') == 'admin_marques_ajout' %}
+            Ajouter la marque
+        {% else %}
+            Enregistrer les modifications
+        {% endif %}
+    </button>
+</div>
 
 {{ form_end(formMarque) }}
+
+<div class="cancel-button-container">
+    <a href="{{ path('admin_marques') }}" class="btn btn-secondary btn-block">Annuler</a>
+</div>
+
 {% endblock %}
 
 {% block javascript %}

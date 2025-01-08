@@ -38,13 +38,14 @@ class Defile
     #[ORM\ManyToMany(targetEntity: Mannequins::class, inversedBy: 'defiles')]
     private Collection $mannequin;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $theme = null;
 
     #[ORM\Column(length: 1000)]
     #[Assert\NotBlank(message: "La description est obligatoire.")]
     #[Assert\Length(min: 20, minMessage: "La description doit comporter au moins {{ limit }} caractères.")]
     private ?string $description = null;
+
+    #[ORM\ManyToOne(inversedBy: 'defiles')]
+    private ?Theme $theme = null;
 
     public function __construct()
     {
@@ -150,18 +151,6 @@ class Defile
         return $this;
     }
 
-    public function getTheme(): ?string
-    {
-        return $this->theme;
-    }
-
-    public function setTheme(?string $theme): self
-    {
-        $this->theme = $theme;
-
-        return $this;
-    }
-
     public function getDescription(): ?string
     {
         return $this->description;
@@ -170,6 +159,18 @@ class Defile
     public function setDescription(?string $description): static
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getTheme(): ?Theme
+    {
+        return $this->theme;
+    }
+
+    public function setTheme(?Theme $theme): static
+    {
+        $this->theme = $theme;
 
         return $this;
     }

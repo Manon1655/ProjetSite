@@ -104,10 +104,13 @@
                 Enregistrer les modifications
             {% endif %}
         </button>
-        <a href="{{ path('admin_mannequins') }}" class="btn btn-secondary btn-block">Annuler</a>
     </div>
 
     {{ form_end(formMannequin) }}
+</div>
+
+<div class="cancel-button-container">
+    <a href="{{ path('admin_mannequins') }}" class="btn btn-secondary btn-block">Annuler</a>
 </div>
 
 {% endblock %}

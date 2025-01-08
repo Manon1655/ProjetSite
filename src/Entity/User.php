@@ -44,12 +44,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: Commentaire::class, mappedBy: 'User')]
     private Collection $commentaires;
 
-    #[ORM\Column(length: 255)]
-    private ?string $role = null;
+
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Blog::class)]
+    private Collection $blogs;
 
     public function __construct()
     {
         $this->commentaires = new ArrayCollection();
+        $this->blogs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -221,14 +224,33 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getRole(): ?string
+
+    /**
+     * @return Collection<int, Blog>
+     */
+    public function getBlogs(): Collection
     {
-        return $this->role;
+        return $this->blogs;
     }
 
-    public function setRole(string $role): static
+    public function addBlog(Blog $blog): static
     {
-        $this->role = $role;
+        if (!$this->blogs->contains($blog)) {
+            $this->blogs->add($blog);
+            $blog->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBlog(Blog $blog): static
+    {
+        if ($this->blogs->removeElement($blog)) {
+            // set the owning side to null (unless already changed)
+            if ($blog->getUser() === $this) {
+                $blog->setUser(null);
+            }
+        }
 
         return $this;
     }

@@ -58,7 +58,6 @@ class DefileType extends AbstractType
                 'class' => Theme::class,
                 'label' => 'nom', 
                 'placeholder' => 'Choisir un thème',
-                'label' => 'Thème du défilé',
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Soumettre'

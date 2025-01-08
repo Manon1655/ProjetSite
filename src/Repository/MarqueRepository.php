@@ -42,8 +42,8 @@ public function listemarquesCompletePaginee()
     {
         return $this->createQueryBuilder('m')
             ->where('m.NomM LIKE :search')
-            ->setParameter('search', $search . '%')  // Le % signifie "tout ce qui suit"
-            ->orderBy('m.NomM', 'ASC')  // Tri par nom
+            ->setParameter('search', $search . '%')  
+            ->orderBy('m.NomM', 'ASC')  
             ->getQuery();
     }
 

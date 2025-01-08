@@ -27,8 +27,8 @@ class BlogRepository extends ServiceEntityRepository
    public function listeBlogsCompletePaginee()
    {
     return $this->createQueryBuilder('b')
-    ->select('b')  // Sélectionnez toutes les colonnes que vous souhaitez
-    ->orderBy('b.NomArticle')  // Tri par nom
+    ->select('b') 
+    ->orderBy('b.NomArticle')  
     ->getQuery();
           
        ;

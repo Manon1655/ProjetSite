@@ -12,7 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class MannequinsController extends AbstractController
 {
-    #[Route('/mannequins', name: 'admin_mannequins' , methods:"GET")]
+    #[Route('/mannequins', name: 'mannequins' , methods:"GET")]
 
     public function listeMannequins(MannequinsRepository $repo, PaginatorInterface $paginator, Request $request)
     {

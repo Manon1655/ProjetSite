@@ -214,9 +214,40 @@
                 <i class="fas fa-plus-circle me-2"></i> Ajouter un défilé
             </a>
         </div>
-    {% endif %}
+        {% endif %}
+       <form method="GET">
+    <div class="form-group">
+        <label for="mannequins">Filtrer par mannequin</label>
+        <select name="mannequins" class="form-control">
+            <option value="">Choisir un mannequin</option>
+            {% for mannequin in range(2000, 2025) %}
+                <option value="{{ mannequin }}" 
+                    {% if app.request.query.get('mannequins') == mannequin|str %}selected{% endif %}>
+                    {{ mannequin }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
 
-<form method="get" action="{{ path('defile_index') }}" class="mb-4">
+    <div class="form-group">
+        <label for="annee">Filtrer par année</label>
+        <select name="annee" class="form-control">
+            <option value="">Choisir une année</option>
+            {% for annee in range(2000, 2025) %}
+                <option value="{{ annee }}" 
+                    {% if app.request.query.get('annee') == annee|str %}selected{% endif %}>
+                    {{ annee }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Filtrer</button>
+</form>
+
+
+
+        <form method="get" action="{{ path('defile_index') }}" class="mb-4">
             <div class="search-bar">
                 <input 
                     type="text" 
@@ -228,33 +259,9 @@
                 <button type="submit" class="btn btn-primary">Rechercher</button>
             </div>
         </form>
-  
-    <form method="GET" action="{{ path('defile_index') }}" class="mb-4">
-        <div class="row">
-            <div class="col-md-6 mb-3">
-                <label for="mannequins">Filtrer par mannequin</label>
-                <select name="mannequins" id="mannequins" class="form-control">
-                    <option value="">Choisir un mannequin</option>
-                </select>
-            </div>
-            <div class="col-md-6 mb-3">
-                <label for="annee">Filtrer par année</label>
-                <select name="annee" id="annee" class="form-control">
-                    <option value="">Choisir une année</option>
-                    {% for annee in range(2000, 2025) %}
-                        <option value="{{ annee }}" 
-                            {% if app.request.query.get('annee') == annee %}selected{% endif %}>
-                            {{ annee }}
-                        </option>
-                    {% endfor %}
-                </select>
-            </div>
-        </div>
-        <button type="submit" class="btn btn-primary">Filtrer</button>
-    </form>
+    
 
-    <!-- Liste des défilés -->
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    <div class="row row-cols-1 row-cols-md-9 row-cols-lg-3 g-4">
         {% for ledefile in lesDefiles %}
             <div class="col">
                 <div class="card shadow-lg border-0 rounded-4">
@@ -298,7 +305,6 @@
             </div>
         {% endfor %}
     </div>
-</div>
 {% endblock %}
 {% block javascript %}
     {% include "include/_modale.html.twig" %}

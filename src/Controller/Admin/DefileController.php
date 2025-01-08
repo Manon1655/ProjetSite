@@ -80,7 +80,6 @@ class DefileController extends AbstractController
         $mannequin = $request->query->get('mannequin', null);
         $annee = $request->query->get('annee', null);
 
-        // Validation des paramètres
         if ($mannequin && !is_numeric($mannequin)) {
             throw new \InvalidArgumentException('Le paramètre mannequin doit être un entier.');
         }
@@ -90,10 +89,9 @@ class DefileController extends AbstractController
         }
 
         $queryBuilder = $repository->createQueryBuilder('d')
-            ->leftJoin('d.mannequin', 'm') // Joindre la relation mannequin
+            ->leftJoin('d.mannequin', 'm') 
             ->addSelect('m');
 
-        // Appliquer les filtres
         if (!empty($search)) {
             $queryBuilder->andWhere('d.nomD LIKE :search')
                 ->setParameter('search', '%' . $search . '%');

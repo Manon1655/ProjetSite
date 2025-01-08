@@ -1,171 +1,189 @@
-/* Corps de la page */
+/* Importation de Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Roboto:wght@400&display=swap');
+
+/* Design général */
 body {
-    background: url('URL_DE_TON_IMAGE_DE_FOND') no-repeat center center fixed; /* Image de fond */
-    background-size: cover; /* Couvre toute la page */
-    font-family: 'Playfair Display', serif; /* Police luxe et élégante */
-    color: #2c2c2c; /* Gris subtile */
+    font-family: 'Roboto', sans-serif; /* Police élégante pour le corps */
+    background-color: #f4f7fa; /* Fond général */
+    color: #333; /* Couleur du texte par défaut */
     margin: 0;
     padding: 0;
-}
-
-  /* Navigation Bar */
-  .navbar {
-    background-color: #ffffff; /* Fond blanc pour un look épuré */
-    padding: 15px 30px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); /* Ombre douce et élégante */
-    border-bottom: 1px solid #e0e0e0; /* Ajouter une bordure subtile */
-    font-family: 'Montserrat', sans-serif; /* Police moderne et élégante */
-}
-
-.navbar-brand {
-    font-size: 2.2rem;
-    font-weight: 700;
-    color: #2c3e50; /* Couleur sombre pour un aspect sophistiqué */
-    text-decoration: none;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    font-family: 'Playfair Display', serif; /* Police élégante pour le titre */
-    transition: color 0.3s ease;
-}
-
-.navbar-brand:hover {
-    color: #34495e; /* Subtle hover effect for brand */
-}
-
-.navbar-nav {
-    list-style-type: none;
-    display: flex;
-    margin-left: auto;
-    align-items: center;
-}
-
-.nav-item {
-    margin-right: 30px; /* Espacement plus large entre les éléments */
-}
-
-.nav-link {
-    color: #555555; /* Gris élégant pour le texte */
-    font-size: 1.1rem;
-text-transform: uppercase;
-    font-weight: 500;
-    transition: color 0.3s ease, transform 0.3s ease;
-text-decoration: none;
-    font-family: 'Montserrat', sans-serif;
-}
-
-.nav-link:hover {
-    color: #2c3e50; /* Changement de couleur plus foncé pour un survol élégant */
-    transform: translateY(-3px); /* Légère élévation pour un effet de survol plus élégant */
+    transition: background-color 0.3s ease;
 }
 
 /* Conteneur principal */
 .container {
-    max-width: 900px;
-    margin: 120px auto 40px; /* Espace sous la navbar */
-    background: rgba(255, 255, 255, 0.9); /* Fond blanc transparent */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    padding: 40px;
-    border-radius: 15px;
-    border: none;
+    max-width: 600px; /* Taille plus compacte */
+    margin: 50px auto; /* Centré verticalement */
+    padding: 30px;
+    background-color: #fff; /* Fond blanc */
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Ombre élégante */
+    transition: transform 0.3s ease;
 }
 
 /* Titre principal */
 h1 {
-    font-size: 2.4rem;
-    color: #2c2c2c;
+    font-family: 'Playfair Display', serif; /* Police élégante pour le titre */
+    font-size: 2.5rem;
+    color: #000; /* Titre en noir */
     text-align: center;
-    margin-bottom: 30px;
-    font-family: 'Playfair Display', serif;
-    font-weight: bold;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Ombre subtile */
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+/* Sous-titre */
+h4 {
+    font-size: 1rem;
+    color: #444;
+    margin-bottom: 20px;
+    font-weight: 400;
+    text-align: center;
+}
+
+/* Effet d'apparition (Fade-in) lors du scroll */
+.container, .form-group, .btn {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.8s forwards;
+    animation-delay: 0.2s;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Formulaire */
-form .form-group {
-    margin-bottom: 25px;
+form {
+    margin-top: 30px;
 }
 
-form label {
-    font-weight: bold;
-    color: #2c2c2c;
-    display: block;
-    margin-bottom: 8px;
-    font-size: 1rem;
-}
-
-form input, form select, form textarea {
+input, select, textarea {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 12px;
     width: 100%;
-    padding: 14px 18px;
     font-size: 1rem;
-    border: 1px solid #e0d6cc;
-    border-radius: 12px;
-    background-color: #ffffff;
-    box-sizing: border-box;
-    transition: border-color 0.3s, box-shadow 0.3s;
+    transition: border 0.3s ease, box-shadow 0.3s ease;
 }
 
-form input:focus, form select:focus, form textarea:focus {
-    border-color: #d4af37; /* Or au focus */
-    box-shadow: 0 0 6px rgba(212, 175, 55, 0.5);
+input:focus, select:focus, textarea:focus {
+    border-color: #000; /* Bordure noire lors du focus */
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+    outline: none;
+}
+
+/* Sélecteurs */
+select {
+    background-color: #fff;
+    padding: 12px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    transition: border-color 0.3s ease;
+}
+
+select:focus {
+    border-color: #000; /* Bordure noire sur focus */
 }
 
 /* Boutons */
-form .btn {
-    display: inline-block;
-    width: 100%;
-    padding: 14px;
+.btn {
+    padding: 12px 20px;
     font-size: 1rem;
+    border-radius: 5px;
+    width: 100%;
     text-align: center;
-    border: none;
-    border-radius: 12px;
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s ease, box-shadow 0.3s;
-    font-family: 'Playfair Display', serif;
-    text-transform: uppercase;
-}
-
-form .btn-block {
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-weight: bold;
     margin-top: 20px;
 }
 
-form .btn-dark {
-    background-color: #2c2c2c; /* Noir subtil */
-    color: #ffffff; /* Texte blanc */
-    font-weight: bold;
+.btn-primary {
+    background-color: #000;
+    color: white;
+    border: none;
 }
 
-form .btn-dark:hover {
-    background-color: #d4af37; /* Or intense */
-    color: #fff; /* Blanc */
-    transform: scale(1.05); /* Effet survol */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); /* Ombre douce */
+.btn-primary:hover {
+    background-color: #333;
+    transform: translateY(-2px);
 }
 
-/* Liste des éléments associés */
-ul {
-    list-style-type: none;
+.btn-secondary {
+    background-color: #000; /* Fond noir pour le bouton Annuler */
+    color: white; /* Texte en blanc */
+    border: none;
+    font-family: 'Playfair Display', serif; /* Police élégante */
+    font-weight: 600; /* Police en gras pour un effet luxueux */
+    letter-spacing: 1px; /* Espacement des lettres pour l'élégance */
+    padding: 15px 40px; /* Un peu plus de padding pour l'élégance */
+    text-transform: uppercase; /* Texte en majuscules */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-secondary:hover {
+    background-color: #333; /* Hover avec un gris plus foncé */
+    transform: translateY(-2px);
+}
+
+/* Positionner le bouton Annuler en bas de la page */
+.cancel-button-container {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 999;
+    width: auto; /* Pour ne pas étirer le bouton sur toute la largeur */
+}
+
+.list-group {
     padding: 0;
-    margin: 0;
+    list-style-type: none;
 }
 
-ul li {
-    margin: 10px 0;
-    padding: 12px;
-    background-color: #ffffff;
-    border: 1px solid #e0d6cc;
-    border-radius: 10px;
-    font-size: 1rem;
-    color: #2c2c2c;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-ul li:hover {
+.list-group-item {
     background-color: #f9f9f9;
-    transform: translateX(5px); /* Légère animation au survol */
+    border: 1px solid #ddd;
+    padding: 12px 20px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
 }
 
+.list-group-item:hover {
+    background-color: #f1f1f1;
+}
+
+/* Optimisation responsive */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    .btn {
+        font-size: 0.9rem;
+    }
+    .cancel-button-container {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 999;
+        width: 80%;  
+    }
+
+    .btn-secondary {
+        width: 100%;
+        font-weight: bold;
+    }
+    
+}

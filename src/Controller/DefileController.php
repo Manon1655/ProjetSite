@@ -13,7 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class DefileController extends AbstractController
 {
-    #[Route('/defiles', name: 'admin_defiles' , methods:"GET")]
+    #[Route('/defiles', name: 'defiles' , methods:"GET")]
 
     public function listeDefiles(DefileRepository $repo, PaginatorInterface $paginator, Request $request)
     {

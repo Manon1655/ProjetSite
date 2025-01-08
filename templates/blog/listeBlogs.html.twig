@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% extends 'base.html.twig' %}
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
@@ -17,7 +18,7 @@
 
         function addComment(cardId) {
             const commentText = document.getElementById(`comment-text-${cardId}`).value;
-            const pseudo = document.getElementById(`pseudo-${cardId}`).value || "Anonyme"; // Si pas de pseudo, afficher "Anonyme"
+            const pseudo = document.getElementById(`pseudo-${cardId}`).value || "Anonyme"; 
             
             if (commentText) {
                 const commentContainer = document.getElementById(`comments-${cardId}`);
@@ -32,7 +33,7 @@
                 `;
                 commentContainer.appendChild(newComment);
                 document.getElementById(`comment-text-${cardId}`).value = '';
-                document.getElementById(`pseudo-${cardId}`).value = ''; // Réinitialiser le pseudo
+                document.getElementById(`pseudo-${cardId}`).value = ''; 
             }
         }
 
@@ -58,7 +59,7 @@
     </div>
 
     <div class="add-button-container">
-        <a href="{{ path('admin_blog_ajout') }}" class="add-button">
+        <a href="{{ path('blog_ajout') }}" class="add-button">
             <i class="fas fa-plus-circle"></i> Ajouter un Blog
         </a>
     </div>
@@ -71,9 +72,11 @@
                         <img src="{{ blog.image }}" alt="Image de {{ blog.id }}">
                     </div>
                     <div class="blog-card-content">
+                     <p>{{ blog.user.avatar }}</p>
+                    <p>{{ blog.user.pseudo }}</p>
+                    
                         <h3>{{ blog.NomArticle }}</h3>
                         <div class="blog-meta">
-                            <p class="blog-author">Publié par :</p>
                             <p class="blog-date">Publié le : {{ blog.Date|date("d-m-Y") }}</p>
                             <i class="fas fa-heart heart-button" onclick="toggleHeart(event)"></i>
                         </div>
@@ -82,23 +85,24 @@
                     {% if blog.defile %}
                         <p><strong>Défilé associé :</strong> {{ blog.defile }}</p>
                     {% endif %}
-                
+
+                 
                     <div class="comment-section">
                         <h4>Commentaires :</h4>
                         <textarea id="comment-text-{{ blog.id }}" rows="3" placeholder="Écrivez un commentaire..."></textarea>
                         <button class="btn" onclick="addComment({{ blog.id }})" id="pseudo-{{ blog.id }}"class="pseudo-input">Ajouter un commentaire</button>
                         <div id="comments-{{ blog.id }}" class="comments-container"></div>
                     </div>
+                 {% if blog.user == app.user %}
                     <div class="card-actions">
-                        {% if "ROLE_ADMIN" in app.user.roles or blog.auteur == app.user %}
-                            <a href="{{ path('admin_blog_modif', {'id': blog.id}) }}" class="btn">
+                            <a href="{{ path('blog_modif', {'id': blog.id}) }}" class="btn">
                                 <i class="fas fa-edit"></i> Modifier
                             </a>
-                            <a href="{{ path('admin_blog_suppression', {'id': blog.id}) }}" class="btn">
+                            <a href="{{ path('blog_suppression', {'id': blog.id}) }}" class="btn">
                                 <i class="fas fa-trash"></i> Supprimer
                             </a>
-                        {% endif %}
                     </div>
+                    {% endif %}
                 </div>
             </div>
         {% endfor %}

@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\MarqueRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: MarqueRepository::class)]
 class Marque
@@ -16,18 +17,24 @@ class Marque
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Le nom est obligatoire.")]
+    #[Assert\Length(min: 2, minMessage: "Le nom doit comporter au moins {{ limit }} caractères.")]
     private ?string $nomM = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Vous devez ajouter un créateur")]
     private ?string $CreateurM = null;
 
     #[ORM\Column(length: 3000)]
+    #[Assert\NotBlank(message: "L'histoire est obligatoire.")]
     private ?string $HistoireM = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Le représentant est obligatoire.")]
     private ?string $RepresentantM = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "L'image est obligatoire.")]
     private ?string $Image = null;
 
     #[ORM\OneToMany(mappedBy: 'marque', targetEntity: Defile::class)]

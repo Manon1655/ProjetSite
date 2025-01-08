@@ -258,22 +258,6 @@
             </a>
         </div>
   {% endif %}
- <div class="filters">
-        <div class="form-group">
-            <label for="defiles">Filtrer par défilé</label>
-            <input 
-                type="text" 
-                name="defiles" 
-                id="defiles"
-                class="form-control" 
-                placeholder="Nom du défilé..."
-                value="{{ app.request.query.get('defiles') }}"
-                onkeyup="submitOnEnter(event)" 
-            >
-        </div>
-    </form>
-</div>
-
         <form method="get" action="{{ path('mannequin_index') }}" class="mb-4">
             <div class="search-bar">
                 <input 
@@ -369,12 +353,8 @@
             {% endif %}
         {% endfor %}
     </div>
-
-    <!-- Pagination -->
-    <div class="navigation">
-        <ul class="pagination">
-            <li class="page-item">{{ knp_pagination_render(lesmannequins) }}</li>
-        </ul>
+     <div class="d-flex justify-content-center mt-4">
+        {{ knp_pagination_render(lesmannequins) }}
     </div>
-</div>
+
 {% endblock %}

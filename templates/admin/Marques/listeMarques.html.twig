@@ -257,31 +257,6 @@
                 <button type="submit" class="btn btn-primary">Rechercher</button>
             </div>
         </form>
-<form method="get" action="{{ path('marque_liste') }}" class="mb-4">
-    <div class="filters">
-        <div class="form-group">
-            <label for="createur">Filtrer par créateur</label>
-        <input 
-            type="text" 
-            name="createur" 
-            class="form-control" 
-            placeholder="Nom du créateur..." 
-            value="{{ app.request.query.get('createur') }}"
-            >
-
-        <div class="form-group">
-            <label for="representant">Représentant</label>
-            <input 
-                type="text" 
-                name="representant" 
-                class="form-control" 
-                placeholder="Nom du représentant..." 
-                value="{{ app.request.query.get('representant') }}"
-            >
-        </div>
-        </form>
-
-
    <div class="row row-cols-1 row-cols-md-9 row-cols-lg-3 g-4">
     {% for laMarque in lesmarques %}
      {% if app.request.query.get('search') is not empty %}
@@ -372,7 +347,6 @@
     <div class="navigation mx-auto mt-4">
         {{ knp_pagination_render(lesmarques) }}
     </div>
-</div>
 {% endblock %}
 
 {% block javascript %}
