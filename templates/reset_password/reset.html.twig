@@ -93,5 +93,11 @@
             <button class="btn btn-primary">Modifiez votre mot de passe</button>
         {{ form_end(resetForm) }}
     </div>
+     <h1>Réinitialiser le mot de passe</h1>
+
+    {{ form_start(resetForm) }}
+        {{ form_row(resetForm.email) }}
+        <button type="submit" class="btn btn-primary">Envoyer l'email de réinitialisation</button>
+    {{ form_end(resetForm) }}
 {% endblock %}
 

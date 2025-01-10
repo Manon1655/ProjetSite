@@ -42,6 +42,9 @@ class Mannequins
     #[ORM\Column(length: 1000)]
     private ?string $imageMannequins = null;
 
+    // #[ORM\Column]
+    // private ?\DateTimeImmutable $updatedAt = null;
+
 
 
 
@@ -49,6 +52,8 @@ class Mannequins
     {
         $this->defiles = new ArrayCollection();
         $this->imageMannequins = new ArrayCollection();
+        // $this->setUpdatedAt(new \DateTimeImmutable);
+        // $this->setImageMannequins("defile-de-mode-monument-historique.jpg");
     }
 
     public function getId(): ?int
@@ -144,6 +149,18 @@ class Mannequins
     public function setImageMannequins(string $imageMannequins): static
     {
         $this->imageMannequins = $imageMannequins;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeImmutable $updatedAt): static
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

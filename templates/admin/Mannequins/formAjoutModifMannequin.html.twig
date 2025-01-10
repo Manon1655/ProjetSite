@@ -21,37 +21,20 @@
     <div class="form-group">
         {{ form_label(formMannequin.Nom, 'Nom') }}
         {{ form_widget(formMannequin.Nom, {'attr': {'placeholder': 'Nom du mannequin'}}) }}
-        {% if formMannequin.Nom.vars.errors|length > 0 %}
-            <div class="invalid-feedback">
-                {% for error in formMannequin.Nom.vars.errors %}
-                    <p>{{ error.message }}</p>
-                {% endfor %}
-            </div>
-        {% endif %}
+        {{ form_errors(formMannequin.Nom) }}
     </div>
 
     <div class="form-group">
         {{ form_label(formMannequin.Prenom, 'Prénom') }}
         {{ form_widget(formMannequin.Prenom, {'attr': {'placeholder': 'Prénom du mannequin'}}) }}
-        {% if formMannequin.Prenom.vars.errors|length > 0 %}
-            <div class="invalid-feedback">
-                {% for error in formMannequin.Prenom.vars.errors %}
-                    <p>{{ error.message }}</p>
-                {% endfor %}
-            </div>
-        {% endif %}
+         {{ form_errors(formMannequin.Prenom) }}
     </div>
 
     <div class="form-group">
         {{ form_label(formMannequin.Nationalite, 'Nationalité') }}
         {{ form_widget(formMannequin.Nationalite, {'attr': {'placeholder': 'Nationalité du mannequin'}}) }}
-        {% if formMannequin.Nationalite.vars.errors|length > 0 %}
-            <div class="invalid-feedback">
-                {% for error in formMannequin.Nationalite.vars.errors %}
-                    <p>{{ error.message }}</p>
-                {% endfor %}
-            </div>
-        {% endif %}
+          {{ form_errors(formMannequin.Nationalite) }}
+
     </div>
 
     <div class="form-group">
@@ -62,38 +45,22 @@
                 'class': 'form-control',
                 'style': 'height: 200px;'
             }
-        }) }}
-        {% if formMannequin.biographieM.vars.errors|length > 0 %}
-            <div class="invalid-feedback">
-                {% for error in formMannequin.biographieM.vars.errors %}
-                    <p>{{ error.message }}</p>
-                {% endfor %}
-            </div>
-        {% endif %}
+        }) }} 
+              {{ form_errors(formMannequin.biographieM) }}
+       
+
     </div>
 
     <div class="form-group">
         {{ form_label(formMannequin.defiles, 'Défilés') }}
         {{ form_widget(formMannequin.defiles, {'attr': {'placeholder': 'Défilés du mannequin'}}) }}
-        {% if formMannequin.defiles.vars.errors|length > 0 %}
-            <div class="invalid-feedback">
-                {% for error in formMannequin.defiles.vars.errors %}
-                    <p>{{ error.message }}</p>
-                {% endfor %}
-            </div>
-        {% endif %}
+          {{ form_errors(formMannequin.defiles) }}
     </div>
 
     <div class="form-group">
         {{ form_label(formMannequin.imageMannequins, 'Image') }}
         {{ form_widget(formMannequin.imageMannequins, {'attr': {'placeholder': 'Image du mannequin'}}) }}
-        {% if formMannequin.imageMannequins.vars.errors|length > 0 %}
-            <div class="invalid-feedback">
-                {% for error in formMannequin.imageMannequins.vars.errors %}
-                    <p>{{ error.message }}</p>
-                {% endfor %}
-            </div>
-        {% endif %}
+         {{ form_errors(formMannequin.imageMannequins) }}
     </div>
 
     <div class="form-group">

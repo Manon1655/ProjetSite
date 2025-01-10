@@ -30,9 +30,9 @@ class MannequinType extends AbstractType
                 // ],
             ])
             ->add('Nationalite', TextType::class, [
-                // 'constraints' => [
-                //     new NotBlank(['message' => 'La nationalité est obligatoire.']),
-                // ],
+                'constraints' => [
+                    // new NotBlank(['message' => 'La nationalité est obligatoire.']),
+                ],
             ])
             ->add('biographieM', TextareaType::class, [
                 'attr' => ['placeholder' => 'Courte biographie...', 'rows' => 10],
@@ -51,10 +51,9 @@ class MannequinType extends AbstractType
                 // ],
             ])    
             ->add('imageMannequins', FileType::class, [
-                'label' => 'Image',
+                'mapped' => false,
                 'required' => false,
-                'mapped' => false, 
-                'attr' => ['accept' => 'image/*']
+                'label' => 'chargez la pochette',
                 
             ]);
 
