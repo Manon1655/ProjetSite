@@ -258,19 +258,10 @@
             </a>
         </div>
   {% endif %}
-        <form method="get" action="{{ path('mannequin_index') }}" class="mb-4">
-            <div class="search-bar">
-                <input 
-                    type="text" 
-                    name="search" 
-                    class="form-control" 
-                    placeholder="Rechercher un mannequin par nom..." 
-                    value="{{ app.request.query.get('search') }}"
-                >
-                <button type="submit" class="btn btn-primary">Rechercher</button>
-            </div>
-        </form>
-  
+{{ form_start(formFiltreMannequin)}}
+    {{ form_row(formFiltreMannequin.nom)}}
+<button type="submit" class="btn btn-warning">Rechercher</button>
+{{ form_end(formFiltreMannequin)}} 
 
     <div class="row row-cols-1 row-cols-md-9 row-cols-lg-3 g-4">
         {% for lemannequin in lesmannequins %}

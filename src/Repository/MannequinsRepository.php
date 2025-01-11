@@ -25,22 +25,23 @@ class MannequinsRepository extends ServiceEntityRepository
     /**
      * Récupère les mannequins dont le nom commence par une lettre spécifiée
      *
-     * @param string $search
      * @return Query
      */
-    public function findBySearchQuery(string $search)
+    public function listeMannequinsCompletePaginee($nom=null): ?Query
     {
-        return $this->createQueryBuilder('m')
+       $query= $this->createQueryBuilder('m')
 
-        ->leftJoin('m.defiles', 'd') // Jointure avec les défilés (assumant que 'm.defiles' représente la relation)
-        ->addSelect('d') // Sélection des défilés associés
-        ->where('m.Nom LIKE :search')
-        ->orWhere('m.Prenom LIKE :search') // Recherche aussi sur le prénom
-        ->orWhere('m.Nationalite LIKE :search') // Recherche aussi sur la nationalité
-        ->orWhere('d.nom LIKE :search') // Recherche aussi sur le nom des défilés
-        ->setParameter('search', $search . '%')
-        ->orderBy('m.Nom', 'ASC')
-        ->getQuery();
+        ->select('m.defiles', 'd') 
+        ->leftJoin('d') 
+        ->leftJoin('m.Prenom') 
+        ->leftJoin('m.Nationalite','m') 
+        ->orderBy('m.Nom', 'ASC');
+        if($nom != null){
+            $query->andWhere('m.Nom LIKE :Nomcherche')
+            ->setParameter('Nomrecherche', "%{$nom}%");
+        }
+        ;
+    return  $query->getQuery();
     }
 
     /**
@@ -51,26 +52,26 @@ class MannequinsRepository extends ServiceEntityRepository
     public function findAllQuery()
     {
         return $this->createQueryBuilder('m')
-        ->leftJoin('m.defiles', 'd') // Jointure avec les défilés
-        ->addSelect('d') // Sélectionner les défilés associés
-        ->addSelect('m.Prenom') // Sélectionner le prénom
-        ->addSelect('m.Nationalite') // Sélectionner la nationalité
-        ->orderBy('m.Nom', 'ASC')  // Tri par nom de mannequin
+        ->leftJoin('m.defiles', 'd') 
+        ->addSelect('d') 
+        ->addSelect('m.Prenom') 
+        ->addSelect('m.Nationalite') 
+        ->orderBy('m.Nom', 'ASC') 
         ->getQuery();
     }
 
-    /**
-     * Retourne la liste complète des mannequins avec pagination
-     *
-     * @return Query
-     */
-    public function listeMannequinsCompletePaginee()
-    {
-        return $this->createQueryBuilder('a')
-            ->select('a') 
-            ->orderBy('a.Nom', 'ASC')  
-            ->getQuery();
-    }
+    // /**
+    //  * Retourne la liste complète des mannequins avec pagination
+    //  *
+    //  * @return Query
+    //  */
+    // public function listeMannequinsCompletePaginee()
+    // {
+    //     return $this->createQueryBuilder('a')
+    //         ->select('a') 
+    //         ->orderBy('a.Nom', 'ASC')  
+    //         ->getQuery();
+    // }
 
     public function findByDefile($defileId)
 {
