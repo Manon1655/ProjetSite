@@ -7,13 +7,14 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use App\Model\FiltreMannequin;
 
 class FiltreMannequinsType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nom', TextType::class,[
+            ->add('Nom', TextType::class,[
                 'attr'=>[
                     'placeholder'=>"Saisir une partie du nom du mannequin recherché"
                 ],
@@ -28,7 +29,8 @@ class FiltreMannequinsType extends AbstractType
         $resolver->setDefaults([
             // Configure your form options here
             'method'=>'get',
-            'csrf_protection'=>false
+            'csrf_protection'=>false,
+            'data_class'=> FiltreMannequin::class
         ]);
     }
 }

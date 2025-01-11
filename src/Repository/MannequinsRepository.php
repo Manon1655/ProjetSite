@@ -6,6 +6,7 @@ use App\Entity\Mannequins;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\Query;
+use App\Model\FiltreMannequin;
 
 /**
  * @extends ServiceEntityRepository<Mannequins>
@@ -27,21 +28,23 @@ class MannequinsRepository extends ServiceEntityRepository
      *
      * @return Query
      */
-    public function listeMannequinsCompletePaginee($nom=null): ?Query
+    public function listeMannequinsCompletePaginee(FiltreMannequin $filtre=null): ?Query
     {
-       $query= $this->createQueryBuilder('m')
+        
+       $query = $this->createQueryBuilder('m')
+       ->select('m')
+        // ->leftjoin('m.defiles', 'd') 
+        // ->orderby('d') 
+        // ->orderby('m.Prenom') 
+        // ->select('m.Nationalite','m');
+       ->orderBy('m.Nom', 'ASC'); // Trier par nom
 
-        ->select('m.defiles', 'd') 
-        ->leftJoin('d') 
-        ->leftJoin('m.Prenom') 
-        ->leftJoin('m.Nationalite','m') 
-        ->orderBy('m.Nom', 'ASC');
-        if($nom != null){
-            $query->andWhere('m.Nom LIKE :Nomcherche')
-            ->setParameter('Nomrecherche', "%{$nom}%");
-        }
-        ;
-    return  $query->getQuery();
+   if (!empty($filtre->nom)) {
+       $query->andWhere('m.Nom LIKE :Nomrecherche') 
+             ->setParameter('Nomrecherche', "%{$filtre->nom}%"); 
+   }
+
+   return $query->getQuery();
     }
 
     /**

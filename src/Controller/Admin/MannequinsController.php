@@ -18,6 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Form\FiltreMannequinsType;
+use App\Model\FiltreMannequin;
 
 class MannequinsController extends AbstractController
 {
@@ -25,15 +26,11 @@ class MannequinsController extends AbstractController
 
     public function listeMannequins(MannequinsRepository $repo, PaginatorInterface $paginator, Request $request)
     {
-        $nom=null;
-        $formFiltreMannequin=$this->createForm(FiltreMannequinsType::class);
+        $filtre=new FiltreMannequin();
+        $formFiltreMannequin=$this->createForm(FiltreMannequinsType::class, $filtre);
         $formFiltreMannequin->handleRequest($request);
-        if( $formFiltreMannequin->isSubmitted() &&  $formFiltreMannequin->isValid()){
-            // on récupère la saisie dans le formulaire du nom
-            $nom=$formFiltreMannequin->get('nom')->getData();
-        }
         $mannequins=$paginator->paginate(
-            $repo->listeMannequinsCompletePaginee($nom),
+            $repo->listeMannequinsCompletePaginee($filtre),
             $request->query->getInt('page', 1),
             9
         );
