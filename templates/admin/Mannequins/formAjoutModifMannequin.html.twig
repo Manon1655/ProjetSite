@@ -50,6 +50,16 @@
        
 
     </div>
+    <div class="col-4">
+        <div>
+           <img src="{{ asset('images/mannequins/' ~ formMannequin.imageMannequins.vars.value) }}"  id ="imageAffichee" alt="" class="rounded mx-auto d-block img-thmbmail>;">
+    </div>
+    <div>
+        {{form_row(formMannequin.imageFile)}}
+            <a class="btn btn-primary d-block center" id="chargePochette"><i class="fas fa-upload"></i> Charger la pochette</a>
+        </div>
+    </div>
+</div>
 
     <div class="form-group">
         {{ form_label(formMannequin.defiles, 'Défilés') }}
@@ -71,14 +81,15 @@
                 Enregistrer les modifications
             {% endif %}
         </button>
+         <a href="{{ path('admin_mannequins') }}" class="btn btn-secondary btn-block">Annuler</a>
     </div>
 
     {{ form_end(formMannequin) }}
 </div>
 
-<div class="cancel-button-container">
+{# <div class="cancel-button-container">
     <a href="{{ path('admin_mannequins') }}" class="btn btn-secondary btn-block">Annuler</a>
-</div>
+</div> #}
 
 {% endblock %}
 

@@ -5,6 +5,8 @@ namespace App\Repository;
 use App\Entity\Blog;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
+use App\Model\FiltreBlog;
 
 /**
  * @extends ServiceEntityRepository<Blog>
@@ -24,16 +26,21 @@ class BlogRepository extends ServiceEntityRepository
    /**
     * @return Query Returns an array of Artiste objects
     */
-   public function listeBlogsCompletePaginee()
-   {
-    return $this->createQueryBuilder('b')
-    ->select('b') 
-    ->orderBy('b.NomArticle')  
-    ->getQuery();
-          
-       ;
-   }
-}
+    public function listeBlogsCompletePaginee(FiltreBlog $filtre = null): ?Query
+    {
+        $query = $this->createQueryBuilder('b')
+            ->select('b')
+            ->leftJoin('b.defile', 'd')
+            ->orderBy('b.defile','ASC');  
+
+        if (!empty($filtre->defile)) {
+                $query->andWhere('b.defile = :defilerecherche')
+                ->setParameter('defilerecherche', $filtre->defile);
+        }
+        ;
+        return $query->getQuery();
+    }
+
 
 
 
@@ -50,3 +57,4 @@ class BlogRepository extends ServiceEntityRepository
 //        ;
 //    }
 
+}

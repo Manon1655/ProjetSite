@@ -12,20 +12,27 @@ use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Form\FiltreBlogsType;
+use App\Model\FiltreBlog;
 
 class BlogController extends AbstractController
 {
     #[Route('/blog', name: 'blog' , methods:"GET")]
 
-    public function listeBlogs(BlogRepository $repo , PaginatorInterface $paginator, Request $request)
+    public function listeBlogs(BlogRepository $repo, PaginatorInterface $paginator, Request $request)
     {
-        $blogs= $paginator->paginate(
-        $repo->listeBlogsCompletePaginee(),
-        $request->query->getInt('page', 1),
-        9
+        $filtre=new FiltreBlog();
+        $formFiltreBlog=$this->createForm(FiltreBlogsType::class, $filtre);
+        $formFiltreBlog->handleRequest($request);
+        //  dd($filtre);
+        $blogs=$paginator->paginate(
+            $repo->listeBlogsCompletePaginee($filtre),
+            $request->query->getInt('page', 1),
+            9
         );
-        return $this->render('blog/listeBlogs.html.twig', [
-            'lesBlogs' => $blogs
+        return $this->render('/blog/listeBlogs.html.twig', [
+            'lesBlogs' => $blogs,
+            'formFiltreBlog'=>$formFiltreBlog->createView()
         ]);
     }
 

@@ -35,14 +35,14 @@ class MannequinsRepository extends ServiceEntityRepository
         ->leftJoin('m.defiles', 'd')  
         ->orderBy('m.Nom', 'ASC');
 
-    if (!empty($filtre->nom)) {
+    if (!empty($filtre->Nom)) {
         $query->andWhere('m.Nom LIKE :Nomrecherche')
-              ->setParameter('Nomrecherche', "%{$filtre->nom}%");
+              ->setParameter('Nomrecherche', "%{$filtre->Nom}%");
     }
 
     if (!empty($filtre->defile)) {
             $query->andWhere('d.NomD = :defilerecherche')
-            ->setParameter('defilerecherche', $filtre->defile);
+            ->setParameter('defilerecherche', $filtre->defile->NomD);
     }
     ;
     return $query->getQuery();

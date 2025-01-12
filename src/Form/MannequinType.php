@@ -15,14 +15,34 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 class MannequinType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+        ->add('imageFile', FileType::class, [
+            'mapped' => false,
+            'required' => false,
+            'label' => 'chargez la pochette',
+            'attr'=>[
+                'accept'=>".jpng,.png"
+                ],
+                'row_attr'=>[
+                    'class'=>"d-none"
+                ]
+
+            
+        ])  
+            ->add('imageMannequins', HiddenType::class)
             ->add('Nom', TextType::class, [
-            ])
+                  'label'=>"Nom du mannequin",
+                  'required'=>false,
+                  'attr'=>[
+                        'placeholder'=>"Saisir le nom du mannequin"
+                  ]
+                ])
             ->add('Prenom', TextType::class, [
                 // 'constraints' => [
                 //     new NotBlank(['message' => 'Le prénom est obligatoire.']),
@@ -49,12 +69,6 @@ class MannequinType extends AbstractType
                 // 'constraints' => [
                 //     new NotBlank(['message' => 'Veuillez sélectionner au moins un défilé.']),
                 // ],
-            ])    
-            ->add('imageMannequins', FileType::class, [
-                'mapped' => false,
-                'required' => false,
-                'label' => 'chargez la pochette',
-                
             ]);
 
 

@@ -204,47 +204,62 @@
             text-align: center;
         }
 
-        /* Stylisation de la barre de recherche */
-        .search-bar {
-            position: relative;
-            max-width: 600px;
-            margin: 0 auto;
-            border-radius: 50px;
-            overflow: hidden;
-        }
+/* Style général pour le formulaire de recherche */
+.search-bar {
+    margin-bottom: 20px;
+}
 
-        .search-bar input {
-            width: 100%;
-            padding: 12px 20px;
-            border: 2px solid #ddd;
-            border-radius: 50px;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
+/* Style des champs de saisie */
+.search-input {
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 100%;
+    box-sizing: border-box;
+}
 
-        .search-bar input:focus {
-            border-color:rgb(0, 0, 0);
-            outline: none;
-            box-shadow: 0 0 8px rgb(227, 240, 255);
-        }
+/* Style des labels */
+.search-bar label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-size: 1rem;
+    color: #333;
+}
 
-        .search-bar button {
-            position: absolute;
-            right: 0;
-            top: 0;
-            border: none;
-            background-color:rgb(0, 0, 0);
-            color: white;
-            padding: 12px 20px;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
+/* Style du bouton de recherche */
+.search-button {
+    width: auto;
+    padding: 8px 15px;
+    font-size: 0.9rem;
+    border-radius: 5px;
+    border: none;
+    background-color:rgb(132, 120, 120);
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
 
-        .search-bar button:hover {
-            background-color:rgb(0, 0, 0);
-        }
+/* Responsivité */
+@media (max-width: 768px) {
+    .search-bar {
+        flex-direction: column;
+    }
+
+    .col-md-5, .col-md-2 {
+        margin-bottom: 10px;
+        width: 100%;
+    }
+
+    .search-button {
+        width: 100%; /* Le bouton prendra toute la largeur sur les petits écrans */
+        padding: 10px;
+    }
+}
+
+
     </style>
+
 {% endblock %}
 
 {% block body %}
@@ -258,13 +273,27 @@
             </a>
         </div>
   {% endif %}
-{{ form_start(formFiltreMannequin)}}
-<div class="row">
-    <div class="col"> {{ form_row(formFiltreMannequin.Nom)}}</div>
-    <div class="col"> {{ form_row(formFiltreMannequin.defile)}}</div>
+{{ form_start(formFiltreMannequin) }}
+<div class="row search-bar">
+    <div class="col-md-5">
+        <div class="form-group">
+            {{ form_label(formFiltreMannequin.Nom, 'Nom') }}
+            {{ form_widget(formFiltreMannequin.Nom, {'attr': {'class': 'form-control search-input'}}) }}
+            {{ form_errors(formFiltreMannequin.Nom) }}
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="form-group">
+            {{ form_label(formFiltreMannequin.defile, 'Défilé') }}
+            {{ form_widget(formFiltreMannequin.defile, {'attr': {'class': 'form-control search-input'}}) }}
+        </div>
+    </div>
+    <div class="col-md-2 d-flex align-items-end">
+        <button type="submit" class="btn btn-warning search-button">Rechercher</button>
+    </div>
 </div>
-<button type="submit" class="btn btn-warning">Rechercher</button>
-{{ form_end(formFiltreMannequin)}} 
+{{ form_end(formFiltreMannequin) }}
+
 
     <div class="row row-cols-1 row-cols-md-9 row-cols-lg-3 g-4">
         {% for lemannequin in lesmannequins %}

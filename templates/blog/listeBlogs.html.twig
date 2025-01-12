@@ -56,6 +56,12 @@
         <h1>Bienvenue sur notre Blog Mode</h1>
         <p>Découvrez nos dernières tendances et collections</p>
     </div>
+    {{ form_start(formFiltreBlog)}}
+<div class="row">
+    <div class="col"> {{ form_row(formFiltreBlog.defile)}}</div>
+</div>
+<button type="submit" class="btn btn-warning">Rechercher</button>
+{{ form_end(formFiltreBlog)}} 
 
     <div class="add-button-container">
         <a href="{{ path('blog_ajout') }}" class="add-button">
