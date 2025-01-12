@@ -145,15 +145,6 @@
             animation: lineAnimation 1.5s ease-in-out infinite;
         }
 
-        @keyframes lineAnimation {
-            0%, 100% {
-                width: 60%;
-            }
-            50% {
-                width: 100%;
-            }
-        }
-
         body {
             background-color: #f5f5f5;
             font-family: 'Arial', sans-serif;
@@ -240,22 +231,6 @@
     transition: background-color 0.3s;
 }
 
-/* Responsivité */
-@media (max-width: 768px) {
-    .search-bar {
-        flex-direction: column;
-    }
-
-    .col-md-5, .col-md-2 {
-        margin-bottom: 10px;
-        width: 100%;
-    }
-
-    .search-button {
-        width: 100%; /* Le bouton prendra toute la largeur sur les petits écrans */
-        padding: 10px;
-    }
-}
 
 
     </style>
@@ -318,7 +293,7 @@
                                 </p>
                             </div>
                             {% if "ROLE_ADMIN" in app.user.roles %}
-                                <div class="card-footer">
+                               <div class="btn-container">
                                     <a href="{{ path('admin_mannequin_modif', {'id': lemannequin.id}) }}" class="btn btn-warning btn-sm">
                                         <i class="fas fa-pen"></i> Modifier
                                     </a>

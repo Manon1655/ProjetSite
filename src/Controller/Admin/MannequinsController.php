@@ -66,16 +66,30 @@ class MannequinsController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid())
-        {
-            $manager->persist($mannequin);
-            $manager->flush();
-            $this->addFlash("dark", "Le mannequin " . $mannequin->getNom() . " " . $mannequin->getPrenom() . " a bien été $mode.");
-            return $this->redirectToRoute('admin_mannequins');
+        { 
+                //on recupere limage selectionnée
+                $fichierImage=$form->get('imageFile')->getData();
+                if($fichierImage !=null){
+                    //on supprime lancien fichier
+                    if($blog->getImage()!="defile-de-mode-monument-historique.png"){
+                        \unlink($this->getParameter('imagesMannequinsDestination').$mannequin->getImage());
+                    }
+                    //on supprime l'ancien fichier
+                    $fichier=md5(\uniqid()).".".$fichierImage->guessExtension();
+                    //on déplace le fichier chargé dans le dossier public
+                    $fichierImage->move($this->getParameter('imagesMannequinsDestination'),$fichier);
+                    $album->setImage($fichier);
+                }
+
+                $manager->persist($mannequin);
+                $manager->flush();
+                $this->addFlash("dark", "Le mannequin " . $mannequin->getNom() . " " . $mannequin->getPrenom() . " a bien été $mode.");
+                return $this->redirectToRoute('admin_mannequins');
+            }
+            return $this->render('admin/Mannequins/formAjoutModifMannequin.html.twig', [
+                'formMannequin' => $form->createView()
+            ]);
         }
-        return $this->render('admin/Mannequins/formAjoutModifMannequin.html.twig', [
-            'formMannequin' => $form->createView()
-        ]);
-    }
 
     
     #[Route('/admin/mannequin/suppression/{id}', name: 'admin_mannequin_suppression' , methods:["GET"])]

@@ -57,7 +57,7 @@ class BlogController extends AbstractController
         {
             $manager->persist($blog);
             $manager->flush();
-            $this->addFlash("success", "le blog a bien été $blog");
+            $this->addFlash("success", "le blog a bien été $mode");
             return $this->redirectToRoute('blog');
         }
         return $this->render('blog/formAjoutModifBlog.html.twig', [

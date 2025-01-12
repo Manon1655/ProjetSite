@@ -62,13 +62,11 @@ class MannequinType extends AbstractType
                 // ],
             ]) 
             ->add('defiles', EntityType::class, [
-                'class' => Defile::class,      
-                'choice_label' => 'nomD',     
-                'multiple' => true,          
-                'expanded' => false,        
-                // 'constraints' => [
-                //     new NotBlank(['message' => 'Veuillez sélectionner au moins un défilé.']),
-                // ],
+                'class' => Defile::class, 
+                'label' => 'nom', 
+                'label' => 'defiles',
+                'multiple' => true,
+                'by_reference' => false, 
             ]);
 
 
