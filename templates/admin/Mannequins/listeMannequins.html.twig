@@ -259,7 +259,10 @@
         </div>
   {% endif %}
 {{ form_start(formFiltreMannequin)}}
-    {{ form_row(formFiltreMannequin.Nom)}}
+<div class="row">
+    <div class="col"> {{ form_row(formFiltreMannequin.Nom)}}</div>
+    <div class="col"> {{ form_row(formFiltreMannequin.defile)}}</div>
+</div>
 <button type="submit" class="btn btn-warning">Rechercher</button>
 {{ form_end(formFiltreMannequin)}} 
 

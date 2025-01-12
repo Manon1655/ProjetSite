@@ -5,6 +5,8 @@ namespace App\Repository;
 use App\Entity\Defile;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Illuminate\Database\Query\Builder;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * @extends ServiceEntityRepository<Defile>
@@ -74,6 +76,21 @@ class DefileRepository extends ServiceEntityRepository
             ->orderBy('a.Nom', 'ASC')  
             ->getQuery();
     }
+
+    /**
+     * Retourne la liste complète des defiles avec pagination
+     *
+     * @return QueryBuilder
+     */
+    public function listeDefileSimple():QueryBuilder{
+
+        return $this->createQueryBuilder('d')
+        ->orderBy('d.NomD', 'ASC');
+    }
+    
+      
+    
+
 
     // Méthode supplémentaire si nécessaire pour d'autres requêtes
     // public function findOneBySomeField($value): ?Mannequins

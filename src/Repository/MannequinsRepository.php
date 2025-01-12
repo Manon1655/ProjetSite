@@ -28,24 +28,27 @@ class MannequinsRepository extends ServiceEntityRepository
      *
      * @return Query
      */
-    public function listeMannequinsCompletePaginee(FiltreMannequin $filtre=null): ?Query
+    public function listeMannequinsCompletePaginee(FiltreMannequin $filtre = null): ?Query
     {
-        
-       $query = $this->createQueryBuilder('m')
-       ->select('m')
-        // ->leftjoin('m.defiles', 'd') 
-        // ->orderby('d') 
-        // ->orderby('m.Prenom') 
-        // ->select('m.Nationalite','m');
-       ->orderBy('m.Nom', 'ASC'); // Trier par nom
-
-   if (!empty($filtre->nom)) {
-       $query->andWhere('m.Nom LIKE :Nomrecherche') 
-             ->setParameter('Nomrecherche', "%{$filtre->nom}%"); 
-   }
-
-   return $query->getQuery();
+        $query = $this->createQueryBuilder('m')
+            ->select('m')
+            ->leftJoin('m.defiles', 'd')  // Utilisez LEFT JOIN pour inclure les mannequins sans défilés
+            ->orderBy('m.Nom', 'ASC'); // Trier par nom
+    
+        if (!empty($filtre->nom)) {
+            $query->andWhere('m.Nom LIKE :Nomrecherche')
+                  ->setParameter('Nomrecherche', "%{$filtre->nom}%");
+        }
+    
+        if (!empty($filtre->defile)) {
+            // Appliquez la condition sur le nom du défilé uniquement si un défilé est spécifié
+            $query->andWhere('d.NomD = :defilerecherche')
+                  ->setParameter('defilerecherche', $filtre->defile);
+        }
+    
+        return $query->getQuery();
     }
+    
 
     /**
      * Retourne tous les mannequins triés par nom,prenom....

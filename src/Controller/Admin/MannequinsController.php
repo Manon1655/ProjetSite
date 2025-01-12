@@ -29,6 +29,7 @@ class MannequinsController extends AbstractController
         $filtre=new FiltreMannequin();
         $formFiltreMannequin=$this->createForm(FiltreMannequinsType::class, $filtre);
         $formFiltreMannequin->handleRequest($request);
+        // dd($filtre);
         $mannequins=$paginator->paginate(
             $repo->listeMannequinsCompletePaginee($filtre),
             $request->query->getInt('page', 1),

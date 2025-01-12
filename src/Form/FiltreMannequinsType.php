@@ -8,6 +8,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use App\Model\FiltreMannequin;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Entity\Defile;
+use App\Repository\DefileRepository;
 
 class FiltreMannequinsType extends AbstractType
 {
@@ -19,7 +22,17 @@ class FiltreMannequinsType extends AbstractType
                     'placeholder'=>"Saisir une partie du nom du mannequin recherché"
                 ],
                 'required'=>false,
-                'label'=>false
+                'label'=>"Recherche sur le nom du mannequin"
+            ])
+            ->add('defile', EntityType::class,[
+                'class'=>Defile::class,
+                'query_builder'=>function(DefileRepository $repo){
+                        return $repo->listeDefileSimple();
+                
+                },
+                'choice_label'=>'nomD',
+                'label'=> "Nom du défilé",
+                'required'=>false
             ])
         ;
     }

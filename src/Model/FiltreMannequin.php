@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Model;
+use App\Entity\Defile;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class FiltreMannequin{
@@ -9,5 +10,7 @@ class FiltreMannequin{
 
 public string $Nom;
 
+
+public Defile $defile;
 
 }
