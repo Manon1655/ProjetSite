@@ -71,14 +71,14 @@ class MannequinsController extends AbstractController
                 $fichierImage=$form->get('imageFile')->getData();
                 if($fichierImage !=null){
                     //on supprime lancien fichier
-                    if($blog->getImage()!="defile-de-mode-monument-historique.png"){
-                        \unlink($this->getParameter('imagesMannequinsDestination').$mannequin->getImage());
+                    if($mannequin->getImageMannequins()!="defile-de-mode-monument-historique.png"){
+                        \unlink($this->getParameter('imagesMannequinsDestination').$mannequin->getImageMannequins());
                     }
                     //on supprime l'ancien fichier
                     $fichier=md5(\uniqid()).".".$fichierImage->guessExtension();
                     //on déplace le fichier chargé dans le dossier public
                     $fichierImage->move($this->getParameter('imagesMannequinsDestination'),$fichier);
-                    $album->setImage($fichier);
+                    $mannequin->setImageMannequins($fichier);
                 }
 
                 $manager->persist($mannequin);

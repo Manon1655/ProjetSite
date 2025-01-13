@@ -4,15 +4,16 @@ namespace App\Form;
 
 use App\Entity\Blog;
 use App\Entity\Defile;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class BlogType extends AbstractType
 {
@@ -45,9 +46,6 @@ class BlogType extends AbstractType
                 'required' => false,
                 'mapped' => false, 
                 'attr' => ['accept' => 'image/*']
-            ])
-            ->add('submit', SubmitType::class, [
-                'label' => 'Enregistrer',
             ]);
     }
 
